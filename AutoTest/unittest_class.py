@@ -6,12 +6,12 @@
 import unittest
 class doTest(unittest.TestCase):
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
 
         print('setUpClass')
 
     @classmethod
-    def tearDownClass(self):
+    def tearDownClass(cls):
         print('teardownclass')
 
     def test_001(self):
