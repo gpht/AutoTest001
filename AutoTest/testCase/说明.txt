@@ -16,3 +16,7 @@
 将ue = e.decode(‘latin-1‘)修改成ue = e
 
 修改完成后保存。
+还有一直在文件夹report里面添加不进测试报告内容，是因为我在allTest.py文件夹中得到当前时间函数里面有点小错误：
+def getNowTime():
+    '''获取当前的时间'''
+    return time.strftime('%Y-%m-%d：%H-%M-%S', time.localtime(time.time()))，%d与%H之间用了冒号
