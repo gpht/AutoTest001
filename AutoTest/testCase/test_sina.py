@@ -12,8 +12,8 @@ class sinaTest(unittest.TestCase):
         self.driver.implicitly_wait(30)
 
     def tearDown(self):
-        # self.driver.quit()
-        pass
+        self.driver.quit()
+
     def test_sina(self):
         # self.driver.find_element_by_xpath('/html/body/div[1]/div/div[2]/div/div/div[4]/div[2]/a').click()
         self.driver.find_element_by_id('freename').send_keys('')
