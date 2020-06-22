@@ -1,0 +1,58 @@
+1.安装java相关的环境
+安装java jdk环境，然后配置环境变量：
+a:右键我的电脑，点击最下面的属性，之后再弹框里点击高级系统设置，再点击环境变量
+(1)新建->变量名"JAVA_HOME"，变量值C:\Java\jdk1.8.0_05（即JDK的安装路径）
+(2)编辑->变量名"Path"，在原变量值的最后面加上 %JAVA_HOME%\bin
+之后一路点击确定
+(3)CLASSPATH：即类路径，目的在于告诉Java执行环境，在哪些目录下可以找到您所要执行的Java程序所需要的类或者包
+变量名：“CLASSPATH”，变量值：".;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar"
+
+2.下载tomcat:
+3.下载jenkins.war包
+    （1）http://mirrors.jenkins-ci.org/
+    （2）选择war：war-stable-rc
+    然后再将jenkins.war包放入tomcat-webapps中
+4.启动tomcat:
+找到tomcat目录-bin/双击startup.sh，将tomcat运行起来
+5.tomcat运行起来后，会告诉你应该在哪个目录下找jenkins的密码
+6.将jenkins密码复制，在浏览器中输入：http:localhost:8080/jenkins
+7.首次访问jenkins要求安装插件，试了下，选择合适的插件，然后选择无，点击确定后，输入密码，用户码进行登录
+8.进入后需要先创建一个JOB：
+    （1）点击新建任务按钮-填写任务名称
+    （2）选择一个构建自由风格的软件项目-确定
+    （3）在构建-build-下拉框中选择execute windows batch command
+    （4）在命令框中输入要执行allTest.py文件的路径
+    （5）点击保存，回到工程页面
+    （6）点击build now
+    （7）构建完成后，点击build history，构建完成的-点击控制台输出，可以看到刚才构建的信息
+9.在jenkins中，配置HTML report报告
+    （1）需要先安装插件HTML Publisher plugin
+    （2）在jenkins-manage-manage plugins-avaliable,在右上角的搜索框中搜索HTML
+    （3）选择HTML Publisher,然后再下载，下载完后退出重新再进。再按照步骤（2），在installed可以看到安装好的插件
+    （4）在之前新建的JOB页面，project allTest，左边有个Configure--biuld,post-build Actions，下拉选择Publish HTML reports
+    （5）再点击Add按钮，在Reports中的HTML directory archive中填写测试报告的目录，在Index page[s]中填写所有.html测试报告
+    （6）点击保存
+    （7）在新建JOB页面，点击左边的立即构建（Build Now）
+    (8)刷新页面后，工程下面就多了HTML Report
+  10.Allure 实战
+    前面配置的HTML Report报告看起来不直观，使用Allure插件结合 Jenkins、pytest测试框架，可生成简洁美观的测试报告
+    （1）安插Allure插件，同步骤9中的（2）（3）,如果在installed里面没有看到安装的插件，那就重启tomcat，
+        再输入http:localhost:8080/jenkins，进入插件管理中就可以看到了
+    （2）在Jenkins-manage jenkins-global tool configuration中安装JDK和Allure
+    （3）点击Add JDK，取消选择自动安装，填写JDK的别名和JAVA_HOME的路径
+    （4）在Allure Commandline页面中选择Allure Commandline安装，选择自动安装-在版本中选择要安装的版本，点击保存
+    （5）在Jenkins-manage jenkins-System configuration，找到Allure Report,点击新增，在key中填写WORKSPACE，value中填写测试报告的路径
+     (6)保存
+    （7）在DOS中安装：pip install pytest（在DOS中安装会报错，找不到对应的版本）
+        pip install pytest-allure-adaptor
+
+    pytest+allure+python3遇到的坑：
+    http://blog.chinaunix.net/uid-12014716-id-5828174.html
+（11）pytest下载：（下载SOURCE源码）
+https://pypi.org/search/?q=pytest
+    下载后解压，在dos中，进入到软件目录，用python setup.py install 来安装
+
+   lxml是python的一个解析库，支持HTML和XML的解析，支持XPath解析方式，而且解析效率非常高
+   这个文件cp27，表示对应的时python2.7；win32 指的时python为32位的
+再比如：scikit_learn‑0.19.1‑cp37‑cp37m‑win_amd64.whl
+对应的则是python3.7；win_amd64则表示python是64位的
